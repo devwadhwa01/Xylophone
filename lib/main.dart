@@ -1,5 +1,5 @@
-import 'package:audiofileplayer/audiofileplayer.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,9 +8,25 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  TextButton keys(String noteSound, Color color, String noteName){
+    double buttonHeight = 70.0;
+    return TextButton(
+      style: const ButtonStyle(enableFeedback: false, overlayColor: WidgetStateColor.transparent, shadowColor: WidgetStateColor.transparent, splashFactory: NoSplash.splashFactory),
+      onPressed: () {
+        playMusic(noteSound);
+      },
+      child: Container(
+        color: color,
+        width: double.infinity,
+        height: buttonHeight,
+        child: Center(child: Text(noteName, style: const TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    double buttonHeight = 70.0;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -26,77 +42,14 @@ class MyApp extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            TextButton(
-              style: const ButtonStyle(enableFeedback: false, overlayColor: WidgetStateColor.transparent),
-              onPressed: () {
-                Audio.load('assets/note1.wav')..play()..dispose();
-              },
-              child: Container(
-                color: Colors.red,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-
-              },
-              child: Container(
-                color: Colors.orange,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-
-              },
-              child: Container(
-                color: Colors.yellow,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                playMusic();
-              },
-              child: Container(
-                color: Colors.green,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                playMusic();
-              },
-              child: Container(
-                color: Colors.blue,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                playMusic();
-              },
-              child: Container(
-                color: Colors.indigo,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                playMusic();
-              },
-              child: Container(
-                color: Colors.purple,
-                width: double.infinity,
-                height: buttonHeight,
-              ),
-            ),
+            keys("C2", Colors.red,"C"),
+            keys("B", Colors.orange,"B"),
+            keys("A", Colors.yellow,"A"),
+            keys("G", Colors.green,"G"),
+            keys("F", Colors.blue,"F"),
+            keys("E1", Colors.indigo,"E"),
+            keys("D1", Colors.deepPurple,"D"),
+            keys("C", Colors.purple,"C")
           ],
         ),
         backgroundColor: Colors.white10,
@@ -105,6 +58,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void playMusic() {
-
+void playMusic(chord) {
+  final player = AudioPlayer();
+  player.play(AssetSource('$chord.wav'));
 }
