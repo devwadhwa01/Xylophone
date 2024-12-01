@@ -25,3 +25,15 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - fonts/
+
+  fonts:
+    - family: Cinzel
+      fonts:
+        - asset: fonts/Cinzel-Regular.otf
+    - family: Subjectivity
+      fonts:
+        - asset: fonts/subjectivity.regular.otf
+    - family: Avocado
+      fonts:
+        - asset: fonts/ltavocado-regular.ttf
